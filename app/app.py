@@ -22,8 +22,8 @@ def hello_world():
 
     today = datetime.now()
     json = {
-        "calendar_filter_start": today.strftime("%Y-%m-23T00:00"),  # %Y-%m-%dT%H:%M
-        "calendar_filter_end": today.strftime("%Y-%m-23T23:59")
+        "calendar_filter_start": today.strftime("%Y-%m-%dT%H:%M"),
+        "calendar_filter_end": today.strftime("%Y-%m-%dT23:59")
     }
     res = requests.post(os.environ.get("LOGIC_APP_URL"), json=json)
     data = res.json()
