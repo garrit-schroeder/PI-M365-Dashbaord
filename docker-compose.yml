@@ -1,0 +1,7 @@
+version: "3"
+services:
+  m365-dashboard:
+    build: .
+    ports:
+      - "5001:80"
+    restart: unless-stopped
