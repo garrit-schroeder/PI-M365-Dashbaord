@@ -1,10 +1,9 @@
 import os
+from datetime import datetime
 
-import babel as babel
 from flask import Flask
 from flask import render_template
 from pip._vendor import requests
-from datetime import date, datetime
 
 template_dir = os.path.abspath('templates')
 app = Flask(__name__)
@@ -18,6 +17,9 @@ def format_datetime(value):
 
 @app.route('/')
 def hello_world():
+    if os.environ.get("LOGIC_APP_URL") is None:
+        return "environment variable LOGIC_APP_URL is not set"
+
     today = datetime.now()
     json = {
         "calendar_filter_start": today.strftime("%Y-%m-23T00:00"),  # %Y-%m-%dT%H:%M
