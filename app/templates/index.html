@@ -9,6 +9,10 @@
     <title>M365 Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
+        .bg-success .list-group-item {
+            background-color: #55c283;
+        }
+
         .bg-primary .list-group-item {
             background-color: #62a9ff;
         }
@@ -47,6 +51,15 @@
                             </div>
                         </li>
                     {%endfor%}
+                </ul>
+            </div>
+             <div class="card text-white bg-success mt-3">
+                <div class="card-body">
+                    <h5 class="card-title m-0">To Do</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><span class="badge badge-light">{{ data.todos|length }}</span> To Do Entries</li>
+                    <li class="list-group-item"><span class="badge badge-light">{{ data.planner.value|length }}</span> Planner Cards</li>
                 </ul>
             </div>
         </div>
