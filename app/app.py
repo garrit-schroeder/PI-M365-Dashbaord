@@ -30,6 +30,8 @@ def get_azure_information():
         return AZURE_RESPONSE
 
 
+get_azure_information()
+
 @app.template_filter('strftime')
 def format_datetime(value):
     date = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f0')
