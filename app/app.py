@@ -21,6 +21,7 @@ def get_azure_information():
         res = requests.post(os.environ.get("LOGIC_APP_URL"), json=json)
         data = res.json()
         data['todos'] = list(filter(lambda x: not x['status'] == 'completed', data['todos']))
+        data['planner']['value'] = list(filter(lambda x: x['completedDateTime'] is not None, data['planner']['value']))
         AZURE_RESPONSE = {
             "date": datetime.utcnow(),
             "data": data,
