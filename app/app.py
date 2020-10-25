@@ -19,9 +19,11 @@ def get_azure_information():
             "calendar_filter_end": today.strftime("%Y-%m-%dT23:59")
         }
         res = requests.post(os.environ.get("LOGIC_APP_URL"), json=json)
+        data = res.json()
+        data['todos'] = list(filter(lambda x: not x['status'] == 'completed', data['todos']))
         AZURE_RESPONSE = {
             "date": datetime.utcnow(),
-            "data": res.json(),
+            "data": data,
             "cached": False
         }
         return AZURE_RESPONSE
@@ -31,6 +33,7 @@ def get_azure_information():
 
 
 get_azure_information()
+
 
 @app.template_filter('strftime')
 def format_datetime(value):
