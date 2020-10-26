@@ -1,9 +1,12 @@
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
+import pytz
+import tzlocal as tzlocal
 from flask import Flask
 from flask import render_template
 from pip._vendor import requests
+from pip._vendor.toml import tz
 
 template_dir = os.path.abspath('templates')
 app = Flask(__name__)
@@ -38,8 +41,11 @@ get_azure_information()
 
 @app.template_filter('strftime')
 def format_datetime(value):
-    date = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f0')
-    return date.strftime("%H:%M")
+    local_timezone = tzlocal.get_localzone()
+    utc_datetime = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f0')
+    local_datetime = utc_datetime.replace(tzinfo=pytz.utc)
+    local_datetime = local_datetime.astimezone(local_timezone)
+    return local_datetime.strftime("%H:%M")
 
 
 @app.route('/')
