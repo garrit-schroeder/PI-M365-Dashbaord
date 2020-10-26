@@ -42,7 +42,7 @@ get_azure_information()
 
 @app.template_filter('strftime')
 def format_datetime(value):
-    local_timezone = tzlocal.get_localzone()
+    local_timezone = pytz.timezone("Europe/Berlin")
     utc_datetime = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f0')
     local_datetime = utc_datetime.replace(tzinfo=pytz.utc)
     local_datetime = local_datetime.astimezone(local_timezone)
